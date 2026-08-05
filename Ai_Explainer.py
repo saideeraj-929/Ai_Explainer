@@ -20,8 +20,8 @@ status_label = tk.Label(
     window,
     text="Status: Ready",
     font=("Arial",10),
-    bg=BG_COLOR,
-    fg=TEXT_COLOR
+    bg="white",
+    fg="gray"
 )
 
 status_label.pack(pady=5)
