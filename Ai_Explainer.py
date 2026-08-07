@@ -114,8 +114,6 @@ def clear():
     explanation_view.delete("1.0",tk.END)
 
 
-explain_button=tk.Button(window,text="Explain Code",font=("Arial",12,"bold"),bg="green",command=explain_code)
-explain_button.pack(pady=5)
 explain_label=tk.Label(window,text="Explanation",font=("Arial",18,"bold"))
 explain_label.pack(pady=5)
 explain_frame = tk.Frame(window,bg="lavender")
@@ -147,11 +145,56 @@ explain_scroll.pack(
     side=tk.RIGHT,
     fill=tk.Y
 )
-save_button=tk.Button(window,text="Save",font=("Arial",10,"bold"),bg="blue",command=save)
-save_button.pack(pady=5,padx=5)
-load_button=tk.Button(window,text="Load",font=("Arial",10,"bold"),bg="orange",command=load)
-load_button.pack(pady=5,padx=5)
-clear_button=tk.Button(window,text="Clear",font=("Arial",10,"bold"),bg="red",command=clear)
-clear_button.pack(pady=5,padx=5)
+button_frame = tk.Frame(window, bg=BG_COLOR)
+button_frame.pack(pady=10)
+
+explain_button = tk.Button(
+    button_frame,
+    text="🤖 Explain",
+    width=12,
+    font=("Arial",10,"bold"),
+    bg="#28a745",
+    fg="white",
+    relief="flat",
+    command=explain_code
+)
+explain_button.grid(row=0,column=0,padx=5)
+
+save_button = tk.Button(
+    button_frame,
+    text="💾 Save",
+    width=10,
+    font=("Arial",10,"bold"),
+    bg="#007bff",
+    fg="white",
+    relief="flat",
+    command=save
+)
+save_button.grid(row=0,column=1,padx=5)
+
+load_button = tk.Button(
+    button_frame,
+    text="📂 Load",
+    width=10,
+    font=("Arial",10,"bold"),
+    bg="#ff9800",
+    fg="white",
+    relief="flat",
+    command=load
+)
+load_button.grid(row=0,column=2,padx=5)
+
+clear_button = tk.Button(
+    button_frame,
+    text="🗑 Clear",
+    width=10,
+    font=("Arial",10,"bold"),
+    bg="#dc3545",
+    fg="white",
+    relief="flat",
+    command=clear
+)
+clear_button.grid(row=0,column=3,padx=5)
+
 load()
 window.mainloop()
