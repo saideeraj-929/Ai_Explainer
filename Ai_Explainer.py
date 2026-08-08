@@ -3,8 +3,8 @@ from tkinter import messagebox
 import os
 from groq import Groq
 client = Groq(
-  api_key=os.getenv("GROQ_API_KEY")
- )
+   api_key=os.getenv("GROQ_API_KEY")
+  )
 window=tk.Tk()
 window.title("🤖 AI Code Explainer ")
 window.geometry("500x600")
@@ -109,6 +109,50 @@ def explain_code():
         status_label.config(
     text="Status: ❌ Error"
 )
+def find_bugs():
+    code = text_entry.get("1.0",tk.END).strip()
+    if code=="":
+        explanation_view.delete("1.0",tk.END)
+        explanation_view.insert(tk.END,"Please Enter Python Code")
+        return
+    status_label.config(text="Status: 🔍 Finding bugs...")
+    window.update()
+    messages=[
+        {
+            "role": "system",
+            "content": (
+                "You are an expert Python debugging teacher.\n\n"
+                "Analyze the given Python code and find possible bugs.\n\n"
+                "Rules:\n"
+                "- Identify syntax errors.\n"
+                "- Identify runtime errors.\n"
+                "- Identify logical errors.\n"
+                "- Explain each problem in simple English.\n"
+                "- Show how to fix each problem.\n"
+                "- If there are no obvious bugs, say so.\n"
+                "- Return only the debugging explanation."
+            )
+        },
+        
+            {
+                "role": "user",
+                "content": code
+            }
+    ]
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=messages
+            )
+        result = response.choices[0].message.content
+        explanation_view.delete("1.0",tk.END)
+        explanation_view.insert(tk.END,result)
+        status_label.config(text="Status: ✅ Bug Analysis Completed")
+    except Exception as e:
+        explanation_view.delete("1.0",tk.END)
+        explanation_view.insert(tk.END,f"Error:\n\n{e}")
+        status_label.config(text="Status: ❌ Error")
+
 def clear():
     text_entry.delete("1.0",tk.END)
     explanation_view.delete("1.0",tk.END)
@@ -169,6 +213,18 @@ explain_button = tk.Button(
     command=explain_code
 )
 explain_button.grid(row=0,column=0,padx=5)
+bug_button = tk.Button(
+    button_frame,
+    text="🐞 Find Bugs",
+    width=12,
+    font=("Arial", 10, "bold"),
+    bg="#dc3545",
+    fg="white",
+    relief="flat",
+    command=find_bugs
+)
+
+bug_button.grid(row=0, column=4, padx=5)
 
 save_button = tk.Button(
     button_frame,
@@ -206,14 +262,16 @@ clear_button = tk.Button(
 )
 clear_button.grid(row=0,column=3,padx=5)
 copy_button = tk.Button(
-    window,
-    text="Copy",
+    button_frame,
+    text="📋 Copy",
+    width=10,
     font=("Arial", 10, "bold"),
-    bg="purple",
+    bg="#6f42c1",
     fg="white",
+    relief="flat",
     command=copy_explanation
 )
 
-copy_button.pack(pady=5, padx=5)
-load()
+copy_button.grid(row=0, column=5, padx=5)
+
 window.mainloop()
