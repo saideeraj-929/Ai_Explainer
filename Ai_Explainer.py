@@ -112,8 +112,18 @@ def explain_code():
 def clear():
     text_entry.delete("1.0",tk.END)
     explanation_view.delete("1.0",tk.END)
+def copy_explanation():
+    explanation = explanation_view.get("1.0", tk.END).strip()
 
+    if explanation == "":
+        messagebox.showwarning("Warning", "No explanation to copy")
+        return
 
+    window.clipboard_clear()
+    window.clipboard_append(explanation)
+    window.update()
+
+    messagebox.showinfo("Success", "Explanation copied!")
 explain_label=tk.Label(window,text="Explanation",font=("Arial",18,"bold"))
 explain_label.pack(pady=5)
 explain_frame = tk.Frame(window,bg="lavender")
@@ -195,6 +205,15 @@ clear_button = tk.Button(
     command=clear
 )
 clear_button.grid(row=0,column=3,padx=5)
+copy_button = tk.Button(
+    window,
+    text="Copy",
+    font=("Arial", 10, "bold"),
+    bg="purple",
+    fg="white",
+    command=copy_explanation
+)
 
+copy_button.pack(pady=5, padx=5)
 load()
 window.mainloop()
