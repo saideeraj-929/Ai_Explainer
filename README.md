@@ -75,7 +75,7 @@ python main.py
 
 ## 📸 
 ***SCREENSHOT***
-![Ai Explainer screenshot](https://github.com/saideeraj-929/Ai_Explainer/blob/eaf0cfe9c6bd9def1276aee3c8ae4adeab5a3f06/Ai_Explainer%20screenshot%20-%202.png)
+![Ai Explainer screenshot](https://github.com/saideeraj-929/Ai_Explainer/blob/acde5e624a8e282d171badab4c6806f040a8f30a/version%203.png)
 
 ### Input
 
